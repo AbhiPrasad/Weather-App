@@ -2,6 +2,12 @@
 var googleAPI = "http://maps.googleapis.com/maps/api/geocode/json?latlng=";
 var weatherAPI = "http://api.openweathermap.org/data/2.5/weather?";
 
+//temperatures
+var kelvinTemp = 0.0;
+var celsiusTemp = 0.0;
+var farhenTemp = 0.0;
+var isItCelsius = true;
+
 // when document loads, get location
 $(document).ready(getLocation);
 
@@ -52,7 +58,12 @@ function getLocation() {
 
             var weathertemptext = JSON.stringify(json.main.temp).replace(/"/g, "");
             console.log(weathertemptext);
-            $('#weathertempinfo').text("The temperature is " + weathertemptext);
+
+            kelvinTemp = parseInt(weathertemptext);
+            celsiusTemp = Math.round(kelvtinToCelsius(kelvinTemp) * 100) / 100;
+            farhenTemp = Math.round(celsiusToFarhen(celsiusTemp) * 100) / 100;
+
+            $('#weathertempinfo').text("The temperature is " + celsiusTemp + " degrees Celsius");
 
             var weatheridtext = JSON.stringify(json.weather[0].id).replace(/"/g, "");
             console.log(weatheridtext);
@@ -90,6 +101,16 @@ function getLocation() {
             }
         }
 
+        //Kelvin to Celsius
+        function kelvtinToCelsius(kelvin) {
+            return kelvin - 273.15;
+        }
+
+        //Celsius to Farhen
+        function celsiusToFarhen(celsius) {
+            return celsius * 1.8 + 32;
+        }
+
         $('#out').html('<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>');
     }
 
@@ -104,3 +125,7 @@ function getLocation() {
     //gets position
     navigator.geolocation.getCurrentPosition(success, error);
 }
+
+//isItCelsius
+
+//function
