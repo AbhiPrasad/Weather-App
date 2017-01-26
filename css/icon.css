@@ -11,7 +11,7 @@ html *:after {
 }
 
 body {
-    max-width: 100em;
+    max-width: 20em;
     padding: 2em;
     margin: 0 auto;
     color: #161616;
