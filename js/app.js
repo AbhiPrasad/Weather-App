@@ -64,6 +64,7 @@ function getLocation() {
             farhenTemp = Math.round(celsiusToFarhen(celsiusTemp) * 100) / 100;
 
             $('#weathertempinfo').text("The temperature is " + celsiusTemp + " degrees Celsius");
+            isItCelsius = true;
 
             var weatheridtext = JSON.stringify(json.weather[0].id).replace(/"/g, "");
             console.log(weatheridtext);
@@ -128,4 +129,12 @@ function getLocation() {
 
 //isItCelsius
 
-//function
+$('#convert').click(function() {
+    if (isItCelsius) {
+        $('#weathertempinfo').text("The temperature is " + farhenTemp + " degrees Farhenheit");
+        isItCelsius = false;
+    } else {
+        $('#weathertempinfo').text("The temperature is " + celsiusTemp + " degrees Celsius");
+        isItCelsius = true;
+    }
+});
