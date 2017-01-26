@@ -36,7 +36,7 @@ function getLocation() {
         function updateLocation(json) {
             var locationtext = JSON.stringify(json.results[0].formatted_address).replace(/"/g, "");
             console.log(locationtext);
-            $('#locationinfo').text("Weather at: " + locationtext);
+            $('#locationinfo').html("<h3>" + locationtext + "</h3>");
         }
 
         // If google API call failed
@@ -54,7 +54,7 @@ function getLocation() {
         function updateWeather(json) {
             var weathermaintext = JSON.stringify(json.weather[0].main).replace(/"/g, "");
             console.log(weathermaintext);
-            $('#weathermaininfo').text("The weather is: " + weathermaintext);
+            $('#weathermaininfo').html("<h3>" + weathermaintext + "</h3>");
 
             var weathertemptext = JSON.stringify(json.main.temp).replace(/"/g, "");
             console.log(weathertemptext);
@@ -63,7 +63,7 @@ function getLocation() {
             celsiusTemp = Math.round(kelvtinToCelsius(kelvinTemp) * 100) / 100;
             farhenTemp = Math.round(celsiusToFarhen(celsiusTemp) * 100) / 100;
 
-            $('#weathertempinfo').text("The temperature is " + celsiusTemp + " degrees Celsius");
+            $('#weathertempinfo').html("<h2>" + celsiusTemp + String.fromCharCode(176) + " Celsius </h2>");
             isItCelsius = true;
 
             var weatheridtext = JSON.stringify(json.weather[0].id).replace(/"/g, "");
@@ -72,6 +72,7 @@ function getLocation() {
             var weatherid = parseInt(weatheridtext);
 
             displayIcon(weatherid);
+            $('#convert').show();
         };
 
         // If weather API call failed
@@ -111,8 +112,6 @@ function getLocation() {
         function celsiusToFarhen(celsius) {
             return celsius * 1.8 + 32;
         }
-
-        $('#out').html('<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>');
     }
 
     // if error in obtaining location
@@ -131,10 +130,16 @@ function getLocation() {
 
 $('#convert').click(function() {
     if (isItCelsius) {
-        $('#weathertempinfo').text("The temperature is " + farhenTemp + " degrees Farhenheit");
+        $('#weathertempinfo').html("<h2>" + celsiusTemp + String.fromCharCode(176) + " Farhenheit </h2>");
         isItCelsius = false;
     } else {
-        $('#weathertempinfo').text("The temperature is " + celsiusTemp + " degrees Celsius");
+        $('#weathertempinfo').html("<h2>" + celsiusTemp + String.fromCharCode(176) + " Celsius </h2>");
         isItCelsius = true;
     }
 });
+
+
+//Used to stop button focus - bootstrap
+$(".btn").mouseup(function() {
+    $(this).blur();
+})
