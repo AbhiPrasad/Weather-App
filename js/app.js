@@ -1,6 +1,7 @@
 // added strings for api
 var googleAPI = "http://maps.googleapis.com/maps/api/geocode/json?latlng=";
 var weatherAPI = "http://api.openweathermap.org/data/2.5/weather?";
+var weatherCases = ["clear sky", "few clouds", "scattered clouds", "broken clouds", "shower rain", "rain", "thunderstorm", "snow", "mist"];
 
 // when document loads, get location
 $(document).ready(getLocation);
@@ -44,10 +45,15 @@ function getLocation() {
         //API call to openweather to get JSON info
         $.getJSON(weatherAPI).done(updateWeather).fail(errWeather);
 
+        //gets weather icon info and temperature (Kelvin) from JSON
         function updateWeather(json) {
-            var weathertext = JSON.stringify(json.weather[0].main).replace(/"/g, "");
-            console.log(weathertext);
-            $('#weatherinfo').text("The weather is: " + weathertext);
+            var weathermaintext = JSON.stringify(json.weather[0].main).replace(/"/g, "");
+            console.log(weathermaintext);
+            $('#weathermaininfo').text("The weather is: " + weathermaintext);
+
+            var weathertemptext = JSON.stringify(json.main.temp).replace(/"/g, "");
+            console.log(weathertemptext);
+            $('#weathertempinfo').text("The temperature is " + weathertemptext);
         };
 
         // If weather API call failed
