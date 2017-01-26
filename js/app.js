@@ -130,14 +130,13 @@ function getLocation() {
 
 $('#convert').click(function() {
     if (isItCelsius) {
-        $('#weathertempinfo').html("<h2>" + celsiusTemp + String.fromCharCode(176) + " Farhenheit </h2>");
+        $('#weathertempinfo').html("<h2>" + farhenTemp + String.fromCharCode(176) + " Farhenheit </h2>");
         isItCelsius = false;
     } else {
         $('#weathertempinfo').html("<h2>" + celsiusTemp + String.fromCharCode(176) + " Celsius </h2>");
         isItCelsius = true;
     }
 });
-
 
 //Used to stop button focus - bootstrap
 $(".btn").mouseup(function() {
