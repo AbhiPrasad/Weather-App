@@ -19,7 +19,7 @@ function getLocation() {
 
         function updateLocation(json) {
             var locationtext = JSON.stringify(json);
-            $('#locationinfo').html(locationtext);
+            $('#locationinfo').text(locationtext);
         }
 
         function errLocation(jqxhr, textStatus, err) {
