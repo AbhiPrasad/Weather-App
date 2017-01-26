@@ -1,7 +1,6 @@
 // added strings for api
 var googleAPI = "http://maps.googleapis.com/maps/api/geocode/json?latlng=";
 var weatherAPI = "http://api.openweathermap.org/data/2.5/weather?";
-var weatherCases = ["clear sky", "few clouds", "scattered clouds", "broken clouds", "shower rain", "rain", "thunderstorm", "snow", "mist"];
 
 // when document loads, get location
 $(document).ready(getLocation);
@@ -54,11 +53,41 @@ function getLocation() {
             var weathertemptext = JSON.stringify(json.main.temp).replace(/"/g, "");
             console.log(weathertemptext);
             $('#weathertempinfo').text("The temperature is " + weathertemptext);
+
+            var weatheridtext = JSON.stringify(json.weather[0].id).replace(/"/g, "");
+            console.log(weatheridtext);
+
+            var weatherid = parseInt(weatheridtext);
+
+            displayIcon(weatherid);
         };
 
         // If weather API call failed
         function errWeather(jqxhr, textStatus, err) {
             console.log("Weather Request Failed: " + textStatus + ", " + err);
+        }
+
+        //displays icon based off of id from api call
+        function displayIcon(weather) {
+            if (weather >= 200 && weather < 300) { //thunderstorm
+                $('#iconshow').html(`<div class="icon thunder-storm"><div class="cloud"></div><div class="lightning"><div class="bolt"></div><div class="bolt"></div></div></div>`);
+            } else if (weather < 500) { //drizzle
+                $('#iconshow').html(`<div class="icon sun-shower"><div class="cloud"></div><div class="sun"><div class="rays"></div></div><div class="rain"></div></div>`);
+            } else if (weather < 600) { //rain
+                $('#iconshow').html(`<div class="icon rainy"><div class="cloud"></div><div class="rain"></div></div>`);
+            } else if (weather < 700) { //snow
+                $('#iconshow').html(`<div class="icon flurries"><div class="cloud"></div><div class="snow"><div class="flake"></div><div class="flake"></div></div></div>`);
+            } else if (weather < 800) { //atmosphere
+                $('#iconshow').html(`<div class="icon cloudy"><div class="cloud"></div><div class="cloud"></div></div>`);
+            } else if (weather == 800) { //clear
+                $('#iconshow').html(`<div class="icon sunny"><div class="sun"><div class="rays"></div></div></div>`);
+            } else if (weather < 900) { //clouds
+                $('#iconshow').html(`<div class="icon cloudy"><div class="cloud"></div><div class="cloud"></div></div>`);
+            } else if (weather < 1000) { //other (extreme + additional)
+                $('#iconshow').html(`<div class="icon cloudy"><div class="cloud"></div><div class="cloud"></div></div>`);
+            } else { //default
+                $('#iconshow').html(`<div class="icon sunny"><div class="sun"><div class="rays"></div></div></div>`);
+            }
         }
 
         $('#out').html('<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>');
