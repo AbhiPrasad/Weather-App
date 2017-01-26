@@ -1,0 +1,42 @@
+{
+    "coord": {
+        "lon": -79.42,
+        "lat": 43.7
+    },
+    "weather": [{
+        "id": 500,
+        "main": "Rain",
+        "description": "light rain",
+        "icon": "10d"
+    }],
+    "base": "stations",
+    "main": {
+        "temp": 275.947,
+        "pressure": 986.99,
+        "humidity": 95,
+        "temp_min": 275.947,
+        "temp_max": 275.947,
+        "sea_level": 1006.12,
+        "grnd_level": 986.99
+    },
+    "wind": {
+        "speed": 7.31,
+        "deg": 231.003
+    },
+    "rain": {
+        "3h": 0.345
+    },
+    "clouds": {
+        "all": 92
+    },
+    "dt": 1485439580,
+    "sys": {
+        "message": 0.0131,
+        "country": "CA",
+        "sunrise": 1485434374,
+        "sunset": 1485469306
+    },
+    "id": 6167865,
+    "name": "Toronto",
+    "cod": 200
+}

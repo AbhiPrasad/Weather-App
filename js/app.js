@@ -1,6 +1,6 @@
 // added strings for api
 var googleAPI = "http://maps.googleapis.com/maps/api/geocode/json?latlng=";
-var weatherAPI = "api.openweathermap.org/data/2.5/weather?";
+var weatherAPI = "http://api.openweathermap.org/data/2.5/weather?";
 
 // when document loads, get location
 $(document).ready(getLocation);
@@ -38,8 +38,22 @@ function getLocation() {
             console.log("Location Request Failed: " + textStatus + ", " + err);
         }
 
-        //API call to google maps to get JSON info
-        $.getJSON(weatherAPI).done(updateLocation).fail(errLocation);
+        //gets weather api link
+        weatherAPI = weatherAPI + "lat=" + latitude + "&lon=" + longitude + "&appid=3fafe423bf2638b8fa7a8077494f6a20";
+
+        //API call to openweather to get JSON info
+        $.getJSON(weatherAPI).done(updateWeather).fail(errWeather);
+
+        function updateWeather(json) {
+            var weathertext = JSON.stringify(json.weather[0].main).replace(/"/g, "");
+            console.log(weathertext);
+            $('#weatherinfo').text("The weather is: " + weathertext);
+        };
+
+        // If weather API call failed
+        function errWeather(jqxhr, textStatus, err) {
+            console.log("Weather Request Failed: " + textStatus + ", " + err);
+        }
 
         $('#out').html('<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>');
     }
