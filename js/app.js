@@ -60,8 +60,8 @@ function getLocation() {
             console.log(weathertemptext);
 
             kelvinTemp = parseInt(weathertemptext);
-            celsiusTemp = Math.round(kelvtinToCelsius(kelvinTemp) * 100) / 100;
-            farhenTemp = Math.round(celsiusToFarhen(celsiusTemp) * 100) / 100;
+            celsiusTemp = Math.round(kelvtinToCelsius(kelvinTemp));
+            farhenTemp = Math.round(celsiusToFarhen(celsiusTemp));
 
             $('#weathertempinfo').html("<h2>" + celsiusTemp + String.fromCharCode(176) + " Celsius </h2>");
             isItCelsius = true;
