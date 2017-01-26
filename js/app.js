@@ -18,13 +18,16 @@ function getLocation() {
         $.getJSON(googleAPI).done(updateLocation).fail(errLocation);
 
         function updateLocation(json) {
-            var locationtext = JSON.stringify(json);
-            $('#locationinfo').text(locationtext);
+            var locationtext = JSON.stringify(json.results[0].formatted_address).replace(/"/g, "");
+            console.log(locationtext);
+            $('#locationinfo').text("Weather at: " + locationtext);
         }
 
         function errLocation(jqxhr, textStatus, err) {
-            console.log("Request Failed: " + textStatus + ", " + err);
+            console.log("Location Request Failed: " + textStatus + ", " + err);
         }
+
+        $.getJSON(weatherAPI).done(updateLocation).fail(errLocation);
 
         $('#out').html('<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>');
     }
